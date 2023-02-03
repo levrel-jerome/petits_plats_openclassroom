@@ -53,6 +53,8 @@ header {
     color: white;
     height: 69px;
     font-size: 23px;
+    display: flex;
+    align-items: center;
 }
 
 #choice span {
@@ -196,7 +198,7 @@ button span  {
 }
 
 .all-receipts {
-    width: 550px;
+    width: 32%;
     height: 600px;
     margin-top: 20px;
     border-radius: 5px;
@@ -207,12 +209,14 @@ button span  {
     width: 100%;
     height: 50%;
     background-color: #C7BEBE;
+    border-radius: 5px 5px 0px 0px;
 }
 
 .text-receipts {
     width: 100%;
     height: 50%;
     background-color: #E7E7E7;
+    border-radius: 0px 0px 5px 5px;
 }
 
 .title-receipts {
@@ -224,16 +228,23 @@ button span  {
 }
 
 .title-receipts h1 {
-    margin: 0px;
     padding-left: 20px;
     size: 18px;
 }
 
 .title-receipts p {
-    margin-right: 30px;
-    margin-top: 12px;
-    font-size: 18px;
+    margin-right: 10px;
     font-weight: bolder;
+}
+
+.title-receipts span {
+    margin-right: 7px;
+}
+
+.timer {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
 }
 
 .explication-receipts {
@@ -249,6 +260,7 @@ button span  {
 
 .ingredient-receipts p {
     padding-left: 20px;
+    margin: 0px;
 }
 
 .information-receipts {
@@ -261,6 +273,7 @@ button span  {
     display: -webkit-box;
     -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
+    margin: 0px;
 }
 
                             /*       dropdown      */
@@ -319,8 +332,10 @@ button span  {
     background-color: #3282F7;
     border: none;
     margin: 10px 10px 10px 0px;
-    padding: 15px;
+    padding: 0px 15px 0px 15px;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .appliance-tag {
@@ -329,8 +344,10 @@ button span  {
     background-color:#68D9A4;
     border: none;
     margin: 10px 10px 10px 0px;
-    padding: 15px;
+    padding: 0px 15px 0px 15px;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
 }
 
 .ustensil-tag {
@@ -339,7 +356,18 @@ button span  {
     background-color:#ED6454;
     border: none;
     margin: 10px 10px 10px 0px;
-    padding: 15px;
+    padding: 0px 15px 0px 15px;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.close {
+    border-radius: 60%;
+    border-color: white;
+    border: solid;
+    margin-left: 5px;
+    padding: 3px;
+    font-size: 15px;
 }
 

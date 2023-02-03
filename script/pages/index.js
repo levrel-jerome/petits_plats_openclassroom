@@ -16,12 +16,17 @@ const divTag = document.querySelector("#tag");
 
 const ingredientsButton = document.querySelector(".ingredients");
 const contentIngredient = document.querySelector(".open-ingredients");
+const spanIngredient = document.querySelector(".span-1");
 
 const appareilsButton = document.querySelector(".appareils");
 const contentAppareil = document.querySelector(".open-appareils");
+const spanAppareil = document.querySelector(".span-2");
 
 const ustensilsButton = document.querySelector(".ustensils");
 const contentUstensils = document.querySelector(".open-ustensils");
+const spanUstensil = document.querySelector(".span-3");
+
+const down = document.querySelector(".fa-chevron-down");
 
 let receiptsFiltered = [];
 let recettes = [];
@@ -96,7 +101,7 @@ async function displayIngredients() {
   function createTag(textContent) {
     let tag = document.createElement("button");
     tag.classList.add("ingredient-tag");
-    tag.innerHTML = textContent;
+    tag.innerHTML = textContent + "<p class = close>x</p>";
     searchBar.parentNode.insertBefore(tag, searchBar.nextSibling);
     tag.addEventListener("click", () => {
       let indexArray = tags.findIndex(
@@ -127,11 +132,15 @@ async function displayIngredients() {
       }
     });
   }
+
   const ClickIngredientButton = document.querySelectorAll(".ingredient-button");
   for (var i = 0; i < ClickIngredientButton.length; i++) {
     ClickIngredientButton[i].addEventListener("click", (e) => {
       let textContentTag = e.currentTarget.innerText;
-      if (tags.includes(textContentTag) === false) {
+      let tabIgredientTag = tags.find(
+        (tag) => tag.type === "ingredient" && tag.value === textContentTag
+      );
+      if (tabIgredientTag === undefined) {
         receiptsFiltered = searchReceiptsTagsIngredients(
           receiptsFiltered,
           textContentTag
@@ -167,7 +176,7 @@ async function displayAppliance() {
   function createTag(textContent) {
     let tag = document.createElement("button");
     tag.classList.add("appliance-tag");
-    tag.innerHTML = textContent;
+    tag.innerHTML = textContent + "<p class = close>x</p>";
     searchBar.parentNode.insertBefore(tag, searchBar.nextSibling);
     tag.addEventListener("click", () => {
       let indexArray = tags.findIndex(
@@ -208,7 +217,10 @@ async function displayAppliance() {
   for (var i = 0; i < ClickApplianceButton.length; i++) {
     ClickApplianceButton[i].addEventListener("click", (e) => {
       let textContentTag = e.currentTarget.innerText;
-      if (tags.includes(textContentTag) === false) {
+      let tabApplianceTag = tags.find(
+        (tag) => tag.type === "appliance" && tag.value === textContentTag
+      );
+      if (tabApplianceTag === undefined) {
         receiptsFiltered = searchReceiptsTagsAppliances(
           receiptsFiltered,
           textContentTag
@@ -242,7 +254,7 @@ async function displayUstensils() {
   function createTag(textContent) {
     let tag = document.createElement("button");
     tag.classList.add("ustensil-tag");
-    tag.innerHTML = textContent;
+    tag.innerHTML = textContent + "<p class = close>x</p>";
     searchBar.parentNode.insertBefore(tag, searchBar.nextSibling);
     tag.addEventListener("click", () => {
       let indexArray = tags.findIndex(
@@ -277,7 +289,10 @@ async function displayUstensils() {
   for (var i = 0; i < ClickUstensilButton.length; i++) {
     ClickUstensilButton[i].addEventListener("click", (e) => {
       let textContentTag = e.currentTarget.innerText;
-      if (tags.includes(textContentTag) === false) {
+      let tabUstensileTag = tags.find(
+        (tag) => tag.type === "ustensil" && tag.value === textContentTag
+      );
+      if (tabUstensileTag === undefined) {
         receiptsFiltered = searchReceiptsTagsUstensils(
           receiptsFiltered,
           textContentTag
@@ -320,9 +335,6 @@ function closeButton(n) {
   document
     .getElementById("placeholder-color" + n)
     .setAttribute("readonly", "readonly");
-  document
-    .getElementById("placeholder-color" + n)
-    .setAttribute("placeholder", "Ingredients");
 }
 
 ingredientsButton.addEventListener("click", () => {
@@ -330,18 +342,32 @@ ingredientsButton.addEventListener("click", () => {
     clicked = true;
     contentIngredient.style.display = "flex";
     ingredientsButton.classList.add("ingredients-click");
+    spanIngredient.style.transform = "rotate(180deg)";
+    spanAppareil.style.transform = "rotate(0deg)";
+    spanUstensil.style.transform = "rotate(0deg)";
     openButton("");
     contentAppareil.style.display = "none";
     appareilsButton.classList.remove("appareils-click");
     closeButton("-2");
+    document
+      .getElementById("placeholder-color-2")
+      .setAttribute("placeholder", "Appareils");
     contentUstensils.style.display = "none";
     ustensilsButton.classList.remove("ustensils-click");
     closeButton("-3");
+    document
+      .getElementById("placeholder-color-3")
+      .setAttribute("placeholder", "Ustensiles");
   } else if (clicked) {
     clicked = false;
     contentIngredient.style.display = "none";
+    spanIngredient.style.transform = "rotate(0deg)";
     ingredientsButton.classList.remove("ingredients-click");
     closeButton("");
+    let getPlaceHolder = document.getElementById("placeholder-color");
+    getPlaceHolder.setAttribute("placeholder", "Ingredients");
+    getPlaceHolder.value = "";
+    getPlaceHolder.dispatchEvent(new Event("keyup"));
   }
 });
 
@@ -350,18 +376,32 @@ appareilsButton.addEventListener("click", () => {
     clicked = true;
     contentAppareil.style.display = "flex";
     appareilsButton.classList.add("appareils-click");
+    spanAppareil.style.transform = "rotate(180deg)";
+    spanIngredient.style.transform = "rotate(0deg)";
+    spanUstensil.style.transform = "rotate(0deg)";
     openButton("-2");
     contentIngredient.style.display = "none";
     ingredientsButton.classList.remove("ingredients-click");
     closeButton("");
+    document
+      .getElementById("placeholder-color")
+      .setAttribute("placeholder", "Ingredients");
     contentUstensils.style.display = "none";
     ustensilsButton.classList.remove("ustensils-click");
     closeButton("-3");
+    document
+      .getElementById("placeholder-color-3")
+      .setAttribute("placeholder", "Ustensiles");
   } else if (clicked) {
     clicked = false;
     contentAppareil.style.display = "none";
+    spanAppareil.style.transform = "rotate(0deg)";
     appareilsButton.classList.remove("appareils-click");
     closeButton("-2");
+    let getPlaceHolder = document.getElementById("placeholder-color-2");
+    getPlaceHolder.setAttribute("placeholder", "Appareils");
+    getPlaceHolder.value = "";
+    getPlaceHolder.dispatchEvent(new Event("keyup"));
   }
 });
 
@@ -370,18 +410,32 @@ ustensilsButton.addEventListener("click", () => {
     clicked = true;
     contentUstensils.style.display = "flex";
     ustensilsButton.classList.add("ustensils-click");
+    spanUstensil.style.transform = "rotate(180deg)";
+    spanIngredient.style.transform = "rotate(0deg)";
+    spanAppareil.style.transform = "rotate(0deg)";
     openButton("-3");
     contentIngredient.style.display = "none";
     ingredientsButton.classList.remove("ingredients-click");
     closeButton("");
+    document
+      .getElementById("placeholder-color")
+      .setAttribute("placeholder", "Ingredients");
     contentAppareil.style.display = "none";
     appareilsButton.classList.remove("appareils-click");
     closeButton("-2");
+    document
+      .getElementById("placeholder-color-2")
+      .setAttribute("placeholder", "Appareils");
   } else if (clicked) {
     clicked = false;
     contentUstensils.style.display = "none";
+    spanUstensil.style.transform = "rotate(0deg)";
     ustensilsButton.classList.remove("ustensils-click");
     closeButton("-3");
+    let getPlaceHolder = document.getElementById("placeholder-color-3");
+    getPlaceHolder.setAttribute("placeholder", "Ustensiles");
+    getPlaceHolder.value = "";
+    getPlaceHolder.dispatchEvent(new Event("keyup"));
   }
 });
 
