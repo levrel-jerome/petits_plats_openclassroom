@@ -1,4 +1,4 @@
-export default function searchReceipts(recipes, filter) {
+export default function searchReceipts(recipes, filter, recettes) {
 
   let googledCards = [];
 
