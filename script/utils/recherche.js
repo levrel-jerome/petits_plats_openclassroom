@@ -15,15 +15,31 @@ export default function searchReceipts(recette, letter, allreceipts) {
       receipt.name.toLowerCase().includes(letterLowerCase)
     )
   ) {
-    //Si les 3 caracteres correspondent à un mots present dans
-    //un titre de recette
-
     receiptsFilter = receiptsFilter.filter((receipt) =>
       receipt.name.toLowerCase().includes(letterLowerCase)
     );
 
-    // => tri du tableau des recettes ne laissant
-    //apparaitre que les recettes correspondantes
+    return receiptsFilter;
+  }
+
+  if (
+    receiptsFilter.some((receipt) =>
+      receipt.description.toLowerCase().includes(letterLowerCase)
+    )
+  ) {
+    receiptsFilter = receiptsFilter.filter((receipt) =>
+      receipt.description.toLowerCase().includes(letterLowerCase)
+    );
+    return receiptsFilter;
+  }
+  if (
+    receiptsFilter.some((receipt) =>
+      receipt.ingredients.toLowerCase().includes(letterLowerCase)
+    )
+  ) {
+    receiptsFilter = receiptsFilter.filter((receipt) =>
+      receipt.ingredients.toLowerCase().includes(letterLowerCase)
+    );
     return receiptsFilter;
   } else {
     const searchBar = document.querySelector("#search");
