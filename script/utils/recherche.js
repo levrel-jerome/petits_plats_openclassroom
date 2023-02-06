@@ -1,54 +1,47 @@
 export default function searchReceipts(recette, letter, allreceipts) {
-  let receiptsFilter = [...recette];
+  
+  
+  let theMillTurns = (recipes, filter) => {
+  //   console.log(recipes, filter);
+  let googledCards = [];
 
-  document.querySelector(".no-receipts-error")?.remove();
+  for (let recipe of recipes) {
+    // console.log(recipe);
+    if (
+      // une recette ?
+      recipe.name.toLowerCase().trim().indexOf(filter.toLowerCase().trim()) > -1 ||
+      recipe.description
+        .toLowerCase()
+        .trim()
+        .indexOf(filter.toLowerCase().trim()) > -1 ||
+      // un appareil ?
+      recipe.appliance
+        .toLowerCase()
+        .trim()
+        .indexOf(filter.toLowerCase().trim()) > -1
+    ) {
+      googledCards.push(recipe);
+      //   console.log(cards);
+      continue;
+    }
+    // un ustensil ?
+    for (let ustensil of recipe.ustensils) {
+      if (ustensil.toLowerCase().trim().indexOf(filter) > -1) {
+        googledCards.push(recipe);
+        break;
+      }
+    }
 
-  if (letter.length < 3) {
-    //Si moins de 3 caracteres on entre pas dans la boucle
-    return allreceipts;
+    // un ingredient ?
+    for (let ingredient of recipe.ingredients) {
+      if (ingredient.ingredient.toLowerCase().trim().indexOf(filter) > -1) {
+        googledCards.push(recipe);
+        break;
+      }
+    }
   }
+  return googledCards;
+};
 
-  let letterLowerCase = letter.toLowerCase();
-
-  if (
-    receiptsFilter.some((receipt) =>
-      receipt.name.toLowerCase().includes(letterLowerCase)
-    )
-  ) {
-    receiptsFilter = receiptsFilter.filter((receipt) =>
-      receipt.name.toLowerCase().includes(letterLowerCase)
-    );
-
-    return receiptsFilter;
-  }
-
-  if (
-    receiptsFilter.some((receipt) =>
-      receipt.description.toLowerCase().includes(letterLowerCase)
-    )
-  ) {
-    receiptsFilter = receiptsFilter.filter((receipt) =>
-      receipt.description.toLowerCase().includes(letterLowerCase)
-    );
-    return receiptsFilter;
-  }
-  if (
-    receiptsFilter.some((receipt) =>
-      receipt.ingredients.toLowerCase().includes(letterLowerCase)
-    )
-  ) {
-    receiptsFilter = receiptsFilter.filter((receipt) =>
-      receipt.ingredients.toLowerCase().includes(letterLowerCase)
-    );
-    return receiptsFilter;
-  } else {
-    const searchBar = document.querySelector("#search");
-    const error = "La recette est mauvaise";
-    const errorMessage = document.createElement("p");
-    errorMessage.className = "no-receipts-error";
-    errorMessage.textContent = error;
-    searchBar.parentNode.insertBefore(errorMessage, searchBar.nextSibling);
-
-    return receiptsFilter;
-  }
+theMillTurns(recette, letter);
 }
