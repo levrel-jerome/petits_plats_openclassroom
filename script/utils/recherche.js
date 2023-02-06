@@ -1,12 +1,9 @@
-export default function searchReceipts(recette, letter, allreceipts) {
-  
-  
-  let theMillTurns = (recipes, filter) => {
-  //   console.log(recipes, filter);
+export default function searchReceipts(recipes, filter) {
+
   let googledCards = [];
 
   for (let recipe of recipes) {
-    // console.log(recipe);
+
     if (
       // une recette ?
       recipe.name.toLowerCase().trim().indexOf(filter.toLowerCase().trim()) > -1 ||
@@ -21,7 +18,7 @@ export default function searchReceipts(recette, letter, allreceipts) {
         .indexOf(filter.toLowerCase().trim()) > -1
     ) {
       googledCards.push(recipe);
-      //   console.log(cards);
+
       continue;
     }
     // un ustensil ?
@@ -42,6 +39,3 @@ export default function searchReceipts(recette, letter, allreceipts) {
   }
   return googledCards;
 };
-
-theMillTurns(recette, letter);
-}
